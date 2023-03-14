@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),url("home.jpg");
+  }
+  
+  .button-container {
+    padding: 10px;
+  }
+  .image1 {
+    width: 10%;
+    height: 20%;
+    opacity: 50%;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  .image2 {
+    float: right;
+    width: 63%;
+    height: 70%;
+    margin-right: -50px;
+    margin-top: 200px;
+  }
+
+  .center-text {
+    position: absolute;
+    top: -10%;
+    left: 51%;
+    transform: translate(-100%, -100%);
+    font-size: 25px;
+    color: white;
+    font-family:serif;
+    text-shadow:4px 4px 4px rgba(0, 0, 0, 0.4);
+  }
+  .text1{
+    position : absolute;
+    top:15%;
+    left:45%;
+    transform: translate(-100%, -100%);
+    font-size: 65px;
+    color: white;
+    font-family:fantasy;
+    text-shadow:4px 4px 4px rgba(0, 0, 0, 0.4) ;
+  }
+  .text2{
+    position : absolute;
+    top:22%;
+    left:23.3%;
+    transform: translate(-100%, -100%);
+    font-size: 40px;
+    color: white;
+    font-family:fantasy;
+    text-shadow:4px 4px 4px rgba(0, 0, 0, 0.4)
+  }
+  .body{
+        height: 100%;
+        width: 100%;
+        background-position:left ;
+        background-size: cover;
+        position: absolute;
+  }
+  
+  .button-container {
+    position: absolute;
+    top: 55%;
+    left: 20%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    size: 100px;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+   .btn housing-btn {
+    margin-top: 20px;
+    text-align:left;
+    background-color: #800080;
+  } 
+  
+  .btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 40px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+
+  }
+  
+  .btn:hover {
+    background-color: #00a693;
+  }
+  
+  .specific-btn {
+    background-color: #0a7e8c;
+    margin-top: -45%;
+    margin-left: 50%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  .housing-btn {
+    background-color: #0a7e8c;
+    margin-left: -95% ;
+    margin-bottom: 1%;
+    text-align: center; 
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  
+  .hostel-btn {
+    background-color: #0a7e8c;
+    margin-top: -43%;
+    margin-left: 50%;
+    margin-bottom: 25%;     
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  .guesthouse-btn {
+    background-color: #0a7e8c;
+    margin-left: -95%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  }

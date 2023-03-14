@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>Login And Registration Form</title>
+  <link rel="stylesheet" href="../static/style3.css">
+
+  
+</head>
+<body>
+
+  <div class="hero">
+<div class="form-box">
+  <div class="button-box">
+    <div id="btn"></div>
+    <button type="button" class="toggle-btn" onclick="login()" id="u">Log In</button>
+    <button type="button" class="toggle-btn"onclick="register()" id="p">Register</button>
+  </div>
+  <form id="login" class="input-group" name="myForm" action="" method="Post" required>
+    <input type="text" name="Email_id" class="input-field" placeholder="User Id" required>
+    <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+    <button type="submit" class="submit-btn" value="submit">Log In</button>
+    <div >
+      <a href="u.html" class="admin">Admin Login</a>
+    </div>
+  </form>
+  <form id="register" class="input-group" name="myForm1" action="/register" method="Post" required>
+    <select id="User Type" name="User_Type" required>
+    <option>Select User Type</option>
+    <option value="Employee">Employee</option>
+    <option value="Student">Student</option>
+    </select>
+    <input type="text" name="User_id" class="input-field" placeholder="User Id" required >
+    <input type="text" name="Name" class="input-field" placeholder="Name" required >
+    <input type="email" name="Email_id" class="input-field" placeholder="Email_id" required>
+    <input type="tel" name="Contact_no"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
+    <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+    <input type="password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
+    <button type="submit" class="submit-btn" id="r1" >Register</button>
+  </form>
+</div>
+  </div>
+
+  <script>
+    var x = document.getElementById("login")
+    var y = document.getElementById("register")
+    var z = document.getElementById("btn")
+
+    function register(){
+      x.style.left = "-400px";
+      y.style.left = "50px";
+      z.style.left = "110px";
+    }
+    function login(){
+      x.style.left = "50px";
+      y.style.left = "450px";
+      z.style.left = "0px";
+    }
+
+
+
+  </script>
+
+</body>
+</html>

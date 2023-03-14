@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    -<title> Specific Location </title>-
+    <link rel="stylesheet" href="../static/test.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body class="b3">
+  <div class="container">
+    <div class="title">Specific Location</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" placeholder="Enter your Username" required>
+          </div>
+          <div class="input-box">
+            <span class="email">Email</span>
+            <input type="email" placeholder="email@iitgn.ac.in" required>
+          </div>
+          <div class="input-box">
+            <span class="phone">Phone Number</span>
+            <input type="tel" name="telphone"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." placeholder="Enter ten digit number" required>
+          </div>
+          <div class="input-box">
+            <span class="subject">Subject</span>
+            <input type="dropdown" placeholder="Enter your Subject" required>
+          </div>
+          <div class="input-box">
+            <span class="nh">Specific Location</span>
+            <select style="width:100%;" id="nh" name="nh">
+              <option>Select Location</option>
+              <option value="Central Arcade">Central Arcade</option>
+              <option value="Sports Complex">Sports Complex</option>
+              <option value="Guest House">Guest House</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Research Park">Research Park</option>
+              
+            </select>
+          </div>
+
+          <div class="input-box">
+            <span class="co">Building/Floor/Room No.</span>
+            <input type="text" placeholder="Enter Location Detail" required>
+          </div>
+
+          <div class="input-box">
+            <span class="ava">Availability</span>
+            <input type="text" placeholder="Ex 12:00 pm" required>
+          </div>
+
+          <div class="input-box">
+            <span class="domain">Domain</span>
+          <select style="width:100%;" id="domain" name="domain" onchange="updateSubdomains()">
+            <option>Select Domain</option>
+            <option value="Civil">Civil</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Air Conditioning">Air Conditioning</option>
+            <option value="Water Cooler">Water Cooler</option>
+        </select>
+      </div>
+
+        <div class="input-box">
+            <span class="subdomain">Subdomain 1</span>
+        <select style="width:100%;" id="subdomain" name="subdomain" onchange="updateSubdomain1()">
+            <option>Select Subdomain 1</option>
+        </select>
+      </div>
+
+        <div class="input-box">
+            <span class="subdomain1">Subdomain 2</span>
+        <select style="width:100%;" id="subdomain1" name="subdomain1">
+            <option>Select Subdomain 2</option>
+        </select>
+      </div>
+
+      <div class="upimg">
+        <label class="form-label" for="customFile">Upload Complaint Image</label>
+        <input type="file" class="form-control" id="customFile" />
+      </div>
+
+
+        <script>
+            function updateSubdomains() {
+                var domainDropdown = document.getElementById("domain");
+                var subdomainDropdown = document.getElementById("subdomain");
+
+                // Clear existing subdomain options
+                subdomainDropdown.innerHTML = '<option>Select Subdomain</option>';
+
+                // Clear existing subdomain1 options
+                clearSubdomain1();
+
+                // Add new subdomain options based on selected domain
+                if (domainDropdown.value === "Civil") {
+                    subdomainDropdown.innerHTML += '<option value="Carpentry work">Carpentry work</option>';
+                    subdomainDropdown.innerHTML += '<option value="Plumbing work">Plumbing work</option>';
+                    subdomainDropdown.innerHTML += '<option value="Mason work">Mason work</option>';
+                    subdomainDropdown.innerHTML += '<option value="Painting work">Painting work</option>';
+                    subdomainDropdown.innerHTML += '<option value="Sewage work">Sewage work</option>';
+                } else if (domainDropdown.value === "Electrical") {
+                    subdomainDropdown.innerHTML += '<option value="Internal Electrical">Internal Electrical</option>';
+                    subdomainDropdown.innerHTML += '<option value="External Electrical">External Electrical</option>';
+                } else if (domainDropdown.value === "Air Conditioning") {
+                    subdomainDropdown.innerHTML += '<option value="Air Conditioning">Air Conditioning</option>';
+                } else if (domainDropdown.value === "Water Cooler") {
+                    subdomainDropdown.innerHTML += '<option value="Water Cooler">Water Cooler</option>';
+                }
+            }
+
+            function updateSubdomain1() {
+                var subdomainDropdown = document.getElementById("subdomain");
+                var subdomain1Dropdown = document.getElementById("subdomain1");
+
+                // Clear existing subdomain1 options
+                clearSubdomain1();
+
+                // Add new subdomain1 options based on selected subdomain
+                if (subdomainDropdown.value === "Carpentry work") {
+                    subdomain1Dropdown.innerHTML += '<option value="Door Shutter/Lock/Handle/Tower bolt/stopper/Hinge/Baby latch not working">Door Shutter/Lock/Handle/Tower bolt/stopper/Hinge/Baby latch not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Curtain rod loose">Curtain rod loose</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Window Shutter/handle/tower bolt/peg stick/hinge not working">Window Shutter/handle/tower bolt/peg stick/hinge not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Cubboard Shutter/lock/handle/hinge not working">Cubboard Shutter/lock/handle/hinge not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Fixing of false ceiling/wall panelling">Fixing of false ceiling/wall panelling</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+
+                } else if (subdomainDropdown.value === "Plumbing work") {
+                    subdomain1Dropdown.innerHTML += '<option value="Leakage/seepage from ceiling">Leakage/seepage from ceiling</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Bottle trap not working">Bottle trap not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Tap/shower/WC/Flushing system leaking">Tap/shower/WC/Flushing system leaking</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Leakage from kitchen sink/wash basin">Leakage from kitchen sink/wash basin</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+
+                } else if (subdomainDropdown.value === "Mason work") {
+                    subdomain1Dropdown.innerHTML += '<option value="Repair of flooring/skiritng/plaster">Repair of flooring/skiritng/plaster</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+
+                } else if (subdomainDropdown.value === "Painting work") {
+                    subdomain1Dropdown.innerHTML += '<option value="Repair of wall cracks/painting/polishing">Repair of wall cracks/painting/polishing</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+
+                } else if (subdomainDropdown.value === "Sewage work") {
+                    subdomain1Dropdown.innerHTML += '<option value="Cleaning of floor trap/galitrap/man hole/sewer line">Cleaning of floor trap/galitrap/man hole/sewer line</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+                }
+                  else if (subdomainDropdown.value === "Internal Electrical") {
+                    subdomain1Dropdown.innerHTML += '<option value="Light fixture not working">Light fixture not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Exhaust fan not working">Exhaust fan not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Ceiling fan not working">Ceiling fan not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Switchboard/socket not working">Switchboard/socket not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="MCB tripping">MCB tripping</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+
+                } else if (subdomainDropdown.value === "External Electrical") {
+                    subdomain1Dropdown.innerHTML += '<option value="Corridor light fixture not working">Corridor light fixture not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Parking light fixture not working">Parking light fixture not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Parcel/garden light fixture not working">Parcel/garden light fixture not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Street light not working">Street light not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Fire fighting">Fire fighting</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+                } else if (subdomainDropdown.value === "Air Conditioning") {
+                    subdomain1Dropdown.innerHTML += '<option value="Water liking from unit">Water liking from unit</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="AC not cooling">AC not cooling</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="AC not working">AC not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="AC touch panel remote not working">AC touch panel remote not working';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+                } else if (subdomainDropdown.value === "Water Cooler") {
+                    subdomain1Dropdown.innerHTML += '<option value="Water not cooling">Water not cooling</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="water cooler not working">water cooler not working</option>';
+                    subdomain1Dropdown.innerHTML += '<option value="Others">Others</option>';
+                }       
+            }
+
+            function clearSubdomain1() {
+                var subdomain1Dropdown = document.getElementById("subdomain1");
+
+                // Clear existing subdomain1 options
+                subdomain1Dropdown.innerHTML = '<option>Select Subdomain 1</option>';
+            }
+        </script>
+        <div class="button">
+          <input type="submit" value="Submit" >
+        </div>
+
+        
+      </form>
+    </div>
+  </div>
+
+  
+
+</body>
+</html>
+
