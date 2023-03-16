@@ -102,7 +102,9 @@ def test_guest_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
-		cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
+		check=cursor.execute('Select * from where Floor = %s and Room_No =%s',(floor,b_r))
+		if not check:
+			cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
 		mysql.connection.commit()
 		return render_template('home.html')
 	return render_template('test_guest.html')
@@ -128,8 +130,10 @@ def test_hostel_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,hostel,room,availability,'Pending',image,'NULL'))
-		cursor.execute('INSERT INTO Hostel (Hostel_Name,Room_No,Student_Email_ID) VALUES\
-		 (%s,%s,%s)', (hostel,room,email))
+		check = cursor.execute('Select * from Hostel where Hostel_Name = %s and Room_No = %s',(hostel,room))
+		if not check:
+			cursor.execute('INSERT INTO Hostel (Hostel_Name,Room_No,Student_Email_ID) VALUES\
+		 	(%s,%s,%s)', (hostel,room,email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('home.html')
@@ -157,8 +161,11 @@ def test_housing_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,apartment,corridor,availability,'Pending',image,'NULL'))
-		cursor.execute('INSERT into Housing_Updated (Block_Name,Apartment_No,Email_ID)\
-		 Values (%s,%s,%s)',(block,apartment,email))
+		check=cursor.execute('Select * from Housing_Updated where Block_Name = %s and Apartment_No = %s',(block,apartment))
+		print(check)
+		if not check:
+			cursor.execute('INSERT into Housing_Updated (Block_Name,Apartment_No,Email_ID)\
+		 	Values (%s,%s,%s)',(block,apartment,email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('home.html')
@@ -239,12 +246,12 @@ def register():
 		elif not re.match(r'[A-Za-z0-9]+', name):
 			msg = 'name must contain only characters and numbers !'
 		else:
-			cursor.execute('INSERT INTO User(email_id,name,contact_no,password ) VALUES(%s,%s,%s,%s)', ( email_id,name,contact_no,password, ))
+			cursor.execute('INSERT INTO User(Email_ID,Name,Contact_No,password ) VALUES(%s,%s,%s,%s)', ( email_id,name,contact_no,password, ))
 			if user_type == 'Employee':
-				cursor.execute('INSERT INTO employee(employee_no, email_id) VALUES(%s,%s)', (user_id, email_id))
+				cursor.execute('INSERT INTO employee(Employee_ID, Employee_Email_ID) VALUES(%s,%s)', (user_id, email_id))
 
 			else:
-				cursor.execute('INSERT INTO Student(roll_no, email_id) VALUES(%s,%s)', (user_id, email_id))
+				cursor.execute('INSERT INTO Student(Roll_No, Student_Email_ID) VALUES(%s,%s)', (user_id, email_id))
 			mysql.connection.commit()
 		msg = 'You have successfully registered !'
 		cursor.close()
