@@ -175,8 +175,8 @@ def test_guest_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
+		cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',b_r)
 		mysql.connection.commit()
-		cursor.close()
 		return render_template('home.html')
 	return render_template('test_guest.html')
 
@@ -201,6 +201,8 @@ def test_hostel_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,hostel,room,availability,'Pending',image,'NULL'))
+		cursor.execute('INSERT INTO Hostel (Hostel_Name,Room_No,Student_Email_ID) VALUES\
+		 (%s,%s,%s)', (hostel,room,email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('home.html')
