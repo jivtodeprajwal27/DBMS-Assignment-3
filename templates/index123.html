@@ -36,7 +36,11 @@
     <input type="tel" name="Contact_no"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
     <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
     <input type="password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
+    {% if error %}  
+    <p><strong>Error</strong>: {{error}}</p>  
+    {% endif %}  
     <button type="submit" class="submit-btn" id="r1" >Register</button>
+    
   </form>
 </div>
   </div>

@@ -10,23 +10,23 @@
   <div class="container">
     <div class="title">Hostel</div>
     <div class="content">
-      <form action="#">
+      <form action="/test_hostel_fill" method="POST" requied>
         <div class="user-details">
           <div class="input-box">
             <span class="details">Username</span>
-            <input type="text" placeholder="Enter your Username" required>
+            <input type="text" name="username" placeholder="Enter your Username" required>
           </div>
           <div class="input-box">
             <span class="email">Email</span>
-            <input type="email" placeholder="email@iitgn.ac.in" required>
+            <input type="email" name="email" placeholder="email@iitgn.ac.in" required>
           </div>
           <div class="input-box">
             <span class="phone">Phone Number</span>
-            <input type="tel" name="telphone"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." placeholder="Enter ten digit number" required>
+            <input type="tel" name="number"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." placeholder="Enter ten digit number" required>
           </div>
           <div class="input-box">
             <span class="subject">Subject</span>
-            <input type="dropdown" placeholder="Enter your Subject" required>
+            <input type="dropdown" name="subject" placeholder="Enter your Subject" required>
           </div>
           <div class="input-box">
             <span class="nh">Name of Hostel</span>
@@ -48,12 +48,12 @@
 
           <div class="input-box">
             <span class="co">Room No.</span>
-            <input type="text" placeholder="Ex: J-115" required>
+            <input type="text" name="room" placeholder="Ex: J-115" required>
           </div>
 
           <div class="input-box">
             <span class="ava">Availability</span>
-            <input type="text" placeholder="Ex 12:00 pm" required>
+            <input type="text" name="time" placeholder="Ex 12:00 pm" required>
           </div>
 
           <div class="input-box">
@@ -83,7 +83,7 @@
 
       <div class="upimg">
         <label class="form-label" for="customFile">Upload Complaint Image</label>
-        <input type="file" class="form-control" id="customFile" />
+        <input type="file" class="form-control" id="customFile" name="image"/>
       </div>
 
 

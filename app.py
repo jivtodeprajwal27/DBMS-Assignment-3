@@ -100,12 +100,13 @@
 
 
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import *
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 from mysql.connector import connect
 import yaml
+import uuid
 
 app = Flask(__name__)
 
@@ -156,9 +157,106 @@ def test_specific():
 def home():
 	return render_template('home.html')
 
+@app.route('/test_guest_fill', methods = ['GET','POST'])
+def test_guest_fill():
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		number = request.form['number']
+		subject = request.form['subject']	
+		b_r = request.form['b_r']
+		domain = request.form['domain']
+		subdomain = request.form['subdomain']
+		subdomain1 = request.form['subdomain1']
+		comp_id = uuid.uuid1()
+		cursor = mysql.connection.cursor()
+		cursor.execute('\
+		INSERT INTO Complaint\
+		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
+		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
+		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
+		mysql.connection.commit()
+		cursor.close()
+		return render_template('home.html')
+	return render_template('test_guest.html')
 
+@app.route('/test_hostel_fill', methods = ['GET','POST'])
+def test_hostel_fill():
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		number = request.form['number']
+		subject = request.form['subject']
+		hostel = request.form['nh']	
+		room = request.form['room']
+		availability = request.form['time']
+		domain = request.form['domain']
+		subdomain = request.form['subdomain']
+		subdomain1 = request.form['subdomain1']
+		image=['image']
+		comp_id = uuid.uuid1()
+		cursor = mysql.connection.cursor()
+		cursor.execute('\
+		INSERT INTO Complaint\
+		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
+		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
+		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,hostel,room,availability,'Pending',image,'NULL'))
+		mysql.connection.commit()
+		cursor.close()
+		return render_template('home.html')
+	return render_template('test_hostel.html')
 
+@app.route('/test_housing_fill', methods = ['GET','POST'])
+def test_housing_fill():
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		number = request.form['number']
+		subject = request.form['subject']
+		apartment = request.form['apartment']	
+		corridor = request.form['corridor']
+		availability = request.form['availability']
+		domain = request.form['domain']
+		subdomain = request.form['subdomain']
+		subdomain1 = request.form['subdomain1']
+		image=['image']
+		comp_id = uuid.uuid1()
+		cursor = mysql.connection.cursor()
+		cursor.execute('\
+		INSERT INTO Complaint\
+		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
+		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
+		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,apartment,corridor,availability,'Pending',image,'NULL'))
+		mysql.connection.commit()
+		cursor.close()
+		return render_template('home.html')
+	return render_template('test_housing.html')
 
+@app.route('/test_specific_fill', methods = ['GET','POST'])
+def test_specific_fill():
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		number = request.form['number']
+		subject = request.form['subject']
+		nh = request.form['nh']	
+		location = request.form['location']
+		availability = request.form['availability']
+		domain = request.form['domain']
+		subdomain = request.form['subdomain']
+		subdomain1 = request.form['subdomain1']
+		image=['image']
+		comp_id = uuid.uuid1()
+		cursor = mysql.connection.cursor()
+		cursor.execute('\
+		INSERT INTO Complaint\
+		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
+		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
+		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,nh,location,availability,'Pending',image,'NULL'))
+		mysql.connection.commit()
+		cursor.close()
+		return render_template('home.html')
+	return render_template('test_specific.html')
 
 @app.route('/', methods =['GET', 'POST'])
 def login():
@@ -167,17 +265,19 @@ def login():
 		username = request.form['Email_id']
 		password = request.form['password']
 		cursor = mysql.connection.cursor()
-		cursor.execute('SELECT * FROM user WHERE email_id = % s AND password = % s', (username, password, ))
+		cursor.execute('SELECT * FROM User WHERE email_id = % s AND password = % s', (username, password, ))
 		account = cursor.fetchone()
 		if account:
 			session['loggedin'] = True
 			session['id'] = account[0]
 			msg = 'Logged in successfully !'
-			return home()
+			return render_template('home.html')
 		else:
 			msg = 'Incorrect username / password !'
 	return render_template('index123.html', msg = msg)
-
+def regError(message):
+    flash(message)
+    return render_template("index123.html",pageType=['register'],flashType="danger")
 
 @app.route('/register', methods =['GET', 'POST'])
 def register():
@@ -193,12 +293,12 @@ def register():
 		confirm_password = user_details['confirm_password']
 		
 
-		'''if password != confirm_password:
-			msg = 'Password does not match !'
-'''
+		if user_details['password'] != user_details['confirm_password']:
+			error="passwords do not match!!!"
+
 		
 		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cursor.execute('SELECT * FROM user WHERE email_id = % s', (email_id, ))
+		cursor.execute('SELECT * FROM User WHERE email_id = % s', (email_id, ))
 		account = cursor.fetchone()
 		if account:
 			msg = 'Account already exists !'
@@ -207,19 +307,19 @@ def register():
 		elif not re.match(r'[A-Za-z0-9]+', name):
 			msg = 'name must contain only characters and numbers !'
 		else:
-			cursor.execute('INSERT INTO user(email_id,name,contact_no,password ) VALUES(%s,%s,%s,%s)', ( email_id,name,contact_no,password, ))
+			cursor.execute('INSERT INTO User(email_id,name,contact_no,password ) VALUES(%s,%s,%s,%s)', ( email_id,name,contact_no,password, ))
 			if user_type == 'Employee':
 				cursor.execute('INSERT INTO employee(employee_no, email_id) VALUES(%s,%s)', (user_id, email_id))
 
 			else:
-				cursor.execute('INSERT INTO student(roll_no, email_id) VALUES(%s,%s)', (user_id, email_id))
+				cursor.execute('INSERT INTO Student(roll_no, email_id) VALUES(%s,%s)', (user_id, email_id))
 			mysql.connection.commit()
 		msg = 'You have successfully registered !'
 		cursor.close()
 		return redirect('/')
 	#elif request.method == 'POST':
 	#	msg = 'Please fill out the form !'
-	return render_template('index123.html')
+	return render_template('index123.html',error=error)
 
 
 

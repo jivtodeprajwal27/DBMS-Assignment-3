@@ -10,29 +10,29 @@
   <div class="container">
     <div class="title">Guest House</div>
     <div class="content">
-      <form action="#">
+      <form action="/test_guest_fill" method="POST" requied>
         <div class="user-details">
           <div class="input-box">
             <span class="details">Username</span>
-            <input type="text" placeholder="Enter your Username" required>
+            <input type="text" name="username" placeholder="Enter your Username" required>
           </div>
           <div class="input-box">
             <span class="email">Email</span>
-            <input type="email" placeholder="email@iitgn.ac.in" required>
+            <input type="email" name="email" placeholder="email@iitgn.ac.in" required>
           </div>
           <div class="input-box">
             <span class="phone">Phone Number</span>
-            <input type="number" placeholder="Enter ten digit number" required>
+            <input type="number" name="number" placeholder="Enter ten digit number" required>
           </div>
           <div class="input-box">
             <span class="subject">Subject</span>
-            <input type="dropdown" placeholder="Enter your Subject" required>
+            <input type="dropdown" name="subject" placeholder="Enter your Subject" required>
           </div>
           
 
           <div class="input-box">
             <span class="co">Building/Room No.</span>
-            <input type="text" placeholder="Ex: 4/203" required>
+            <input type="text" name="b_r" placeholder="Ex: 4/203" required>
           </div>
 
           <div class="input-box">
