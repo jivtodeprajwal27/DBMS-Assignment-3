@@ -94,6 +94,7 @@ def test_guest_fill():
 		domain = request.form['domain']
 		subdomain = request.form['subdomain']
 		subdomain1 = request.form['subdomain1']
+		floor = request.form['floor']
 		comp_id = uuid.uuid1()
 		cursor = mysql.connection.cursor()
 		cursor.execute('\
@@ -101,7 +102,7 @@ def test_guest_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
-		cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',b_r)
+		cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
 		mysql.connection.commit()
 		return render_template('home.html')
 	return render_template('test_guest.html')
@@ -143,6 +144,7 @@ def test_housing_fill():
 		subject = request.form['subject']
 		apartment = request.form['apartment']	
 		corridor = request.form['corridor']
+		block = request.form['Block']
 		availability = request.form['availability']
 		domain = request.form['domain']
 		subdomain = request.form['subdomain']
@@ -153,8 +155,10 @@ def test_housing_fill():
 		cursor.execute('\
 		INSERT INTO Complaint\
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
-		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
+		VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,apartment,corridor,availability,'Pending',image,'NULL'))
+		cursor.execute('INSERT into Housing_Updated (Block_Name,Apartment_No,Email_ID)\
+		 Values (%s,%s,%s)',(block,apartment,email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('home.html')
