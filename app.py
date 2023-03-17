@@ -218,6 +218,15 @@ def regError(message):
     flash(message)
     return render_template("index123.html",pageType=['register'],flashType="danger")
 
+@app.route('/admin', methods = ['GET', 'POST'])
+def admin():
+	if request.method == 'POST':
+		username = request.form['ID']
+		password = request.form['password']
+		if username.lower() == 'admin' and password == 'pass':
+			redirect('admin_page.html')
+	return render_template('admin_login.html')
+
 @app.route('/register', methods =['GET', 'POST'])
 def register():
 	msg = ''
