@@ -223,8 +223,9 @@ def admin():
 	if request.method == 'POST':
 		username = request.form['ID']
 		password = request.form['password']
+		print(username,password)
 		if username.lower() == 'admin' and password == 'pass':
-			redirect('admin_page.html')
+			return render_template('home.html')
 	return render_template('admin_login.html')
 
 @app.route('/register', methods =['GET', 'POST'])
