@@ -7,7 +7,7 @@
 	.hero{
 		height: 100%;
 		width: 100%;
-		background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("C:\\Users\\rishi\\OneDrive\\Desktop\\test\\i.jpg");  
+		background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("i.jpg");  
 		background-position:left ;
 		background-size: cover;
 		position: absolute;
@@ -159,9 +159,7 @@
 	  transition: all 0.3s ease;
 	
 	}
-	.input-group select:hover{
-	
-	}
+
 	
 	#r1{
 	width: 85%;
