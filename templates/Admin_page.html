@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="styleadminpage.css">
+</head>
+
+<body>
+    <!-- <script>
+        function disp()
+        {
+            var x=document.getElementById("domain1").value;
+            if(x=="Civil")
+            document.getElementById("c3").innerHTML="Civil";
+            else if(x=="Electrical")document.getElementById("c3").innerHTML="Electrical";
+            else if(x=="Water Cooling")document.getElementById("c3").innerHTML="Water Cooling";
+            else if(x=="Air Conditioning")document.getElementById("c3").innerHTML="Air Conditioning";
+            else document.getElementById("c3").innerHTML="ALL";
+           
+        }
+            
+    </script> -->
+	<div class="body"> 
+    <!-- Heading -->
+	<h1>Maintainence Portal Dashboard</h1>
+
+	<!-- Menubar -->
+	<ul>
+		<li><a href="#">Housing</a></li>
+		<li><a href="#">Hostel</a></li>
+		<li><a href="#">Guest House</a></li>
+		<li><a href="#">Specific Location</a></li>
+	</ul>
+
+    <!--STATS-->
+    <div class="stats">
+        
+        <span id="totalComplaints">Total Complaints: 50</span>
+        <span> | </span>
+        <span id="completed">Completed: 30</span>
+      </div>
+
+	<!-- Filters -->
+	<div class="filter">
+		<label for="domain">Domain:</label>
+		    <select id="domain1"  onchange="return disp()">
+			<option value="" >All</option>
+			<option value="Civil">Civil</option>
+			<option value="Electrical">Electrical</option>
+			<option value="Air Conditioning">Air Conditioning</option>
+            <option value="Water Cooling">Water Cooling</option>
+		</select>
+		<div class="date-of-complaint">
+            <label for="from-date">From:</label>
+            <input type="date" id="from-date">
+            <label for="to-date">To:</label>
+            <input type="date" id="to-date">
+          </div>
+        <button type="submit">Search</button>
+	</div>
+
+	<!-- Complaint Table -->
+	<table>
+		<thead>
+			<tr>
+                <th>Sr no.</th>
+				<th>Complaint ID</th>
+                <th>Complaint Date</th>
+				<th>User Details</th>
+				<th>Subject</th>
+				<th>Location | Availability</th>
+                <th>Subject</th>
+				<th>Domain | Sub-Domain 1 | Sub-Domain 2</th>
+				<th>Image</th>
+			</tr>
+		
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>123</td>
+                <td>Room Cleaning</td>
+                <td>Building A</td>
+                <td>24/7</td>
+                <td>Housekeeping</td>
+                <td>Cleaning</td>
+                <td>Bedding</td>
+            </tr>
+        </thed>
+        </tbody>
+    
