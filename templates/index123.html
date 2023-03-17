@@ -24,7 +24,7 @@
       <a href="u.html" class="admin">Admin Login</a>
     </div>
   </form>
-  <form id="register" class="input-group" name="myForm1" action="/register" method="Post" required>
+  <form id="register" class="input-group" name="myForm1" action="/register" method="Post"  required >
     <select id="User Type" name="User_Type" required>
     <option>Select User Type</option>
     <option value="Employee">Employee</option>
@@ -34,11 +34,9 @@
     <input type="text" name="Name" class="input-field" placeholder="Name" required >
     <input type="email" name="Email_id" class="input-field" placeholder="Email_id" required>
     <input type="tel" name="Contact_no"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
-    <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
-    <input type="password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
-    {% if error %}  
-    <p><strong>Error</strong>: {{error}}</p>  
-    {% endif %}  
+    <input type="password" id="pas1" name="password" class="input-field" placeholder="Enter Password" value="" required> <font color="red"><div id ="c1"></div></font>
+    <input type="password" id="pas2" name="confirm_password" class="input-field" placeholder="Confirm Password" value="" required onkeyup="return check()">
+    
     <button type="submit" class="submit-btn" id="r1" >Register</button>
     
   </form>
@@ -61,7 +59,22 @@
       z.style.left = "0px";
     }
 
-
+     //password match
+     function check()
+    {
+      var a= document.getElementById("pas1").value;
+      var b= document.getElementById("pas2").value;
+      if(a!=b)
+      {
+        document.getElementById("c1").innerHTML="Password not match";
+        return false;
+      }
+      else
+      {
+        document.getElementById("c1").innerHTML=" ";
+        return false;
+      }
+    }
 
   </script>
 
