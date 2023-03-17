@@ -43,13 +43,16 @@
 	<!-- Filters -->
 	<div class="filter">
 		<label for="domain">Domain:</label>
-		    <select id="domain1"  onchange="return disp()">
-			<option value="" >All</option>
+        <form id="login" class="input-group" name="myForm" action="/filter" method="Post" required>
+            <select id="domain1" name="filter" onchange="this.form.submit()">
+            <option value="" >Select Domain</option>
+            <option value="All" >All</option>
 			<option value="Civil">Civil</option>
 			<option value="Electrical">Electrical</option>
-			<option value="Air Conditioning">Air Conditioning</option>
-            <option value="Water Cooling">Water Cooling</option>
+			<option value="Air-Conditioning">Air-Conditioning</option>
+            <option value="Water Cooler">Water Cooling</option>
 		</select>
+        </form>
 		<div class="date-of-complaint">
             <label for="from-date">From:</label>
             <input type="date" id="from-date">
@@ -63,14 +66,16 @@
 	<table>
 		<thead>
 			<tr>
-                <th>Sr no.</th>
-				<th>Complaint ID</th>
-                <th>Complaint Date</th>
-				<th>User Details</th>
-				<th>Subject</th>
-				<th>Location | Availability</th>
-               
-				<th>Domain | Sub-Domain 1 | Sub-Domain 2</th>
+                <th>Complaint ID</th>
+				<th>User ID</th>
+                <th>Subject</th>
+				<th>Domain</th>
+				<th>Sub-Domain 1</th>
+				<th>Sub-Domain 2</th>
+				<th>Location</th>
+                <th>Specific Location</th>
+                <th>Availability</th>
+                <th>Complaint Status</th>
 				<th>Image</th>
 			</tr>
 		
@@ -85,6 +90,20 @@
                 <td>Cleaning</td>
                 <td>Bedding</td>
             </tr>
+            {% for item in data %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+                <td>{{item[4]}}</td>
+                <td>{{item[5]}}</td>
+                <td>{{item[6]}}</td>
+                <td>{{item[7]}}</td>
+                <td>{{item[8]}}</td>
+                <td>{{item[9]}}</td>   
+            </tr>
+            {% endfor %}
         </thed>
         </tbody>
     

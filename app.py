@@ -197,6 +197,34 @@ def test_specific_fill():
 		return render_template('home.html')
 	return render_template('test_specific.html')
 
+
+@app.route('/filter',methods=['Get','Post'])
+def filter():
+	if request.method == 'POST':
+		filter = request.form['filter']
+		cursor = mysql.connection.cursor()
+		print(filter)
+		if filter == 'Civil':
+			cursor.execute('Select * from Complaint where Domain = %s',(filter,))
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
+		elif filter == 'Electrical':
+			cursor.execute('Select * from Complaint where Domain = %s',(filter,))
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
+		elif filter == 'Air-Conditioning':
+			cursor.execute('Select * from Complaint where Domain = %s',(filter,))
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
+		elif filter == 'Water Cooler':
+			cursor.execute('Select * from Complaint where Domain = %s',(filter,))
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
+		elif filter == 'All':
+			cursor.execute('Select * from Complaint')
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
+
 @app.route('/', methods =['GET', 'POST'])
 def login():
 	msg = ''
@@ -218,6 +246,11 @@ def regError(message):
     flash(message)
     return render_template("index123.html",pageType=['register'],flashType="danger")
 
+@app.route('/admin_page')
+def admin_page():
+	return render_template('Admin_page.html')
+
+
 @app.route('/admin', methods = ['GET', 'POST'])
 def admin():
 	if request.method == 'POST':
@@ -225,7 +258,10 @@ def admin():
 		password = request.form['password']
 		print(username,password)
 		if username.lower() == 'admin' and password == 'pass':
-			return render_template('home.html')
+			cursor = mysql.connection.cursor()
+			cursor.execute("SELECT * FROM Complaint")
+			data = cursor.fetchall()
+			return render_template('Admin_page.html',data=data)
 	return render_template('admin_login.html')
 
 @app.route('/register', methods =['GET', 'POST'])
