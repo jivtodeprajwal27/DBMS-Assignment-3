@@ -102,7 +102,7 @@ def test_guest_fill():
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
-		check=cursor.execute('Select * from where Floor = %s and Room_No =%s',(floor,b_r))
+		check=cursor.execute('Select * from Guest_House where Floor = %s and Room_No = %s',(floor,b_r))
 		if not check:
 			cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
 		mysql.connection.commit()
