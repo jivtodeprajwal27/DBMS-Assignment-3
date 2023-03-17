@@ -14,15 +14,15 @@ body{
 }
 
 .b1{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0)),url("C:\\Users\\rishi\\OneDrive\\Desktop\\test\\hos.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0)),url("hos.jpg");
 }
 
 .b2{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),url("C:\\Users\\rishi\\OneDrive\\Desktop\\test\\h.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),url("h.jpg");
 }
 
 .b3{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(255, 255, 255, 0.1)),url("C:\\Users\\rishi\\OneDrive\\Desktop\\test\\sl.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(255, 255, 255, 0.1)),url("sl.jpg");
 }
 
 .b4{
