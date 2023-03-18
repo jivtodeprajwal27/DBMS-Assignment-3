@@ -20,17 +20,26 @@
         }
             
     </script> -->
+    <!-- {% with messages = get_flashed_messages() %}  
+         {% if messages %}  
+               {% for message in messages %}  
+                    <p>{{ message }}</p>  
+               {% endfor %}  
+         {% endif %}  
+      {% endwith %}   -->
+
+
 	<div class="body"> 
     <!-- Heading -->
 	<h1>Maintainence Portal Dashboard</h1>
-
+    <button class="Logout" type="submit">Log Out</button>
 	<!-- Menubar -->
-	<ul>
-		<li><a href="#">Housing</a></li>
-		<li><a href="#">Hostel</a></li>
-		<li><a href="#">Guest House</a></li>
-		<li><a href="#">Specific Location</a></li>
-	</ul>
+        <ul>
+            <li><a href="#">Housing</a></li>
+            <li><a href="#">Hostel</a></li>
+            <li><a href="#">Guest House</a></li>
+            <li><a href="#">Specific Location</a></li>
+        </ul>
 
     <!--STATS-->
     <div class="stats">
@@ -53,15 +62,8 @@
             <option value="Water Cooler">Water Cooling</option>
 		</select>
         </form>
-		<div class="date-of-complaint">
-            <label for="from-date">From:</label>
-            <input type="date" id="from-date">
-            <label for="to-date">To:</label>
-            <input type="date" id="to-date">
-          </div>
-        <button type="submit">Search</button>
 	</div>
-
+    
 	<!-- Complaint Table -->
 	<table>
 		<thead>
@@ -80,16 +82,6 @@
 			</tr>
 		
         <tbody>
-            <tr>
-                <td>001</td>
-                <td>123</td>
-                <td>Room Cleaning</td>
-                <td>Building A</td>
-                <td>24/7</td>
-                <td>Housekeeping</td>
-                <td>Cleaning</td>
-                <td>Bedding</td>
-            </tr>
             {% for item in data %}
             <tr>
                 <td>{{item[0]}}</td>

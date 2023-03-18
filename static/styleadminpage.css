@@ -6,7 +6,7 @@ body {
 h1 {
     text-align: left;
     font-size: 20px;
-    margin-top: 5px;
+    margin-top: 0px;
     margin-left: 5px;
     color: rgb(30, 29, 29);
     font-family:sans-serif;
@@ -30,16 +30,17 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 5px 148px;
+    padding: 5px 120px;
     text-decoration: none;
 }
-.li a.active {
+li a:active {
     background-color: #c1c6cb;
     color: black;
 }
 
 li a:hover:not(.active){
-    background-color: #111;
+    background-color: #c1c6cb;
+    
 }
 
 .stats {
@@ -59,12 +60,12 @@ li a:hover:not(.active){
 /* Style for filters */
 .filter {
     margin-top: 0px;
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
+    display: flex;
     background-color: #f2f2f2;
     padding: 5px;
     border-radius: 5px;
+    align-items: center;
+    justify-content: center;
 }
 
 .filter label {
@@ -91,8 +92,27 @@ li a:hover:not(.active){
     border-radius: 5px;
 }
 
-.filter button[type="submit"]:hover {
+/* .filter button[type="submit"]:hover {
     background-color: #767a7e;
+} */
+.body .Logout {
+    margin-right: 6px;
+    display: right;
+    float: right;
+    margin-top: -30px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #484242;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.Logout:hover{
+    color: #2c2d2e;
+    background-color: white;
 }
 
 /* Style for complaint table */
@@ -120,7 +140,7 @@ tr:nth-child(even) {
     height: 100%;
     width: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("Admin.jpg");
-    background-position:left ;
     background-size: cover;
-    position: absolute;
+    background-attachment: fixed;
+    background-repeat: repeat-y;
 }
