@@ -1,0 +1,28 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Complaint Registered</title>
+  <link rel="stylesheet" href="../static/logout_1.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <h1>Complaint Registered</h1>
+  <p>Thank you for submitting your complaint. We will review it shortly.</p>
+  <p>Successfully registered complaint.</p>
+  
+  <button onclick="location.href='/home'";>Home</button>
+  <button onclick="location.href='/'";>Logout</button>
+  
+  <script>
+    Swal.fire({
+      title: "Complaint Registered",
+      text: "Successfully registered complaint.",
+      icon: "success",
+      confirmButtonText: "OK"
+    });
+  </script>
+</body>
+</html>
+
