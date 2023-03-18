@@ -16,6 +16,23 @@
 
 
 
+from __future__ import print_function
+
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+
+
+
+
 
 
 
@@ -37,7 +54,6 @@ import uuid
 app = Flask(__name__)
 
 db=yaml.safe_load(open('db.yaml'))
-
 
 app.secret_key = 'your secret key'
 
@@ -194,7 +210,7 @@ def test_specific_fill():
 		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,nh,location,availability,'Pending',image,'NULL'))
 		mysql.connection.commit()
 		cursor.close()
-		return render_template('home.html')
+		return render_template('logout.html')
 	return render_template('test_specific.html')
 
 
@@ -241,6 +257,7 @@ def login():
 			return render_template('home.html')
 		else:
 			msg = 'Incorrect username / password !'
+			flash(msg)
 	return render_template('index123.html', msg = msg)
 def regError(message):
     flash(message)
@@ -287,6 +304,8 @@ def register():
 		account = cursor.fetchone()
 		if account:
 			msg = 'Account already exists !'
+			flash(msg)
+			return render_template('index123.html',msg=msg)
 		elif not re.match(r'[^@]+@[^@]+\.[^@]+', email_id):
 			msg = 'Invalid email address !'
 		elif not re.match(r'[A-Za-z0-9]+', name):
@@ -304,17 +323,17 @@ def register():
 		return redirect('/')
 	#elif request.method == 'POST':
 	#	msg = 'Please fill out the form !'
-	return render_template('index123.html',error=error)
+	return render_template('index123.html',msg=msg)
 
 
 
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('loggedin', None)
-#     session.pop('id', None)
-#     session.pop('username', None)
-#     return redirect(url_for('login'))
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 # @app.route("/index")
 # def index():
