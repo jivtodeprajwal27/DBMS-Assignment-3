@@ -20,6 +20,15 @@
     <input type="text" name="Email_id" class="input-field" placeholder="User Id" required>
     <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
     <button type="submit" class="submit-btn" value="submit">Log In</button>
+    {% with messages = get_flashed_messages() %}
+ {% if messages %}
+  <ul>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+ {% endif %}
+{% endwith %}
     <div >
       <a href="/admin" class="admin">Admin Login</a>
     </div>
@@ -38,7 +47,15 @@
     <input type="password" id="pas2" name="confirm_password" class="input-field" placeholder="Confirm Password" value="" required onkeyup="return check()">
     
     <button type="submit" class="submit-btn" id="r1" >Register</button>
-    
+    {% with messages = get_flashed_messages() %}
+ {% if messages %}
+  <ul>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+ {% endif %}
+{% endwith %}
   </form>
 </div>
   </div>
