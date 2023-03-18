@@ -33,7 +33,10 @@ import re
 from mysql.connector import connect
 import yaml
 import uuid
-
+from authlib.integrations.flask_client import OAuth
+import random
+import smtplib
+from email.message import EmailMessage
 app = Flask(__name__)
 
 db=yaml.safe_load(open('db.yaml'))
@@ -59,9 +62,12 @@ app.config['MYSQL_DB'] = db['mysql_db']
 
 #     return conn
 
-
+name = ''
+email_id = ''
+OTP = None
+to_mail = None
 mysql = MySQL(app)
-
+oauth = OAuth(app)
 # by soumya
 @app.route('/test_guest', methods =['GET', 'POST'])
 def test_guest():
@@ -242,6 +248,16 @@ def login():
 		else:
 			msg = 'Incorrect username / password !'
 	return render_template('index123.html', msg = msg)
+
+@app.route('/forgot_password')
+def forgot_password():
+	return render_template("forgot_password.html")
+
+@app.route('/verify')
+def verify():
+	return render_template("verify.html")
+
+
 def regError(message):
     flash(message)
     return render_template("index123.html",pageType=['register'],flashType="danger")
@@ -270,18 +286,14 @@ def register():
 	if request.method == 'POST':
 		user_details = request.form
 		user_type= user_details['User_Type']
-		user_id = user_details['User_id']
-		email_id = user_details['Email_id']
-		name = user_details['Name']
-		contact_no = user_details['Contact_no']
-		password = user_details['password']
-		confirm_password = user_details['confirm_password']
-		
-
-		if user_details['password'] != user_details['confirm_password']:
-			error="passwords do not match!!!"
+		user_id = user_details['User']
+		password = user_details['pas1']
+		confirm_password = user_details['pas2']
+		contact_no = user_details['number']
 
 		
+		global name
+		global email_id
 		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 		cursor.execute('SELECT * FROM User WHERE email_id = % s', (email_id, ))
 		account = cursor.fetchone()
@@ -304,10 +316,60 @@ def register():
 		return redirect('/')
 	#elif request.method == 'POST':
 	#	msg = 'Please fill out the form !'
-	return render_template('index123.html',error=error)
+	return render_template('register.html',msg=msg)
 
+ 
+@app.route('/OTP', methods =["GET", "POST"])
+def OTP():
+	if request.method == "POST":
+		user_details = request.form
+		global to_mail
+		to_mail = user_details['To_mail']
+		#print(to_mail)
+		cursor = mysql.connection.cursor()
+		cursor.execute("select email_id from User where email_id = %s",(to_mail,))
+		account = cursor.fetchone()
+		for i in account:
+			if i==to_mail:
+				global OTP
+				OTP=random.randrange(2000, 5000, 3)
+				mail = EmailMessage()
+				mail.set_content("{} is your OTP for Password Reset ".format(OTP))
+				mail['Subject'] = 'Password Reset OTP'
+				mail['From'] = "patidarritesh@iitgn.ac.in"
+				mail['To'] = "{}".format( to_mail )
+				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+				server.login("patidarritesh@iitgn.ac.in", "Patidar@143321")
+				server.send_message(mail)
+				server.quit()
+				return render_template('new_password.html')
+	return render_template("reset.html")
+	return render_template("table.html")
 
-
+@app.route('/new_password', methods =["GET", "POST"])
+def new_password():
+	if request.method == 'POST':
+		global OTP
+		global to_mail
+		password = request.form['pas1']
+		confirm = request.form['pas2']
+		otp = request.form['OTP']
+		print(password,confirm,otp,OTP)
+		if password == confirm and int(otp)==OTP:
+			cursor = mysql.connection.cursor()
+			cursor.execute("Select * from User where email_id = %s",(to_mail,))
+			email = cursor.fetchone()
+			for i in email:
+				print(i,to_mail)
+				if i == to_mail:
+					cursor.execute("update User Set password = %s where email_id =%s",(password,to_mail,))
+					flash('hooray password changed successfully!')
+					mysql.connection.commit()
+					return render_template('index123.html')
+				error = "Account does not exist"
+				return render_template('index123.html',error = error)
+	error = "Wrong OTP"
+	return render_template('forgot_password.html',error = error)
 
 # @app.route('/logout')
 # def logout():
@@ -363,6 +425,47 @@ def register():
 # 			msg = 'Please fill out the form !'
 # 		return render_template("update.html", msg = msg)
 # 	return redirect(url_for('login'))
+
+@app.route('/google',  methods =['GET', 'POST'])
+def google():
+
+	# Google Oauth Config
+	# Get client_id and client_secret from environment variables
+	# For developement purpose you can directly put it
+	# here inside double quotes
+	GOOGLE_CLIENT_ID = "14105763444-75bvq8dpckghed5kougj1q83538hdn3v.apps.googleusercontent.com"
+	GOOGLE_CLIENT_SECRET = "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"
+	
+	CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+	oauth.register(
+		name='google',
+		client_id=GOOGLE_CLIENT_ID,
+		client_secret=GOOGLE_CLIENT_SECRET,
+		server_metadata_url=CONF_URL,
+		userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
+		client_kwargs={
+			'scope': 'openid email profile'
+		}
+	)
+	
+	# Redirect to google_auth function
+	redirect_uri = url_for('google_auth', _external=True)
+	return oauth.google.authorize_redirect(redirect_uri)
+
+@app.route('/google/auth/', methods =['GET', 'POST'])
+def google_auth():
+	token = oauth.google.authorize_access_token()
+	#user = oauth.google.parse_id_token(token)
+	#print(" Google User ", user)
+	global name
+	global email_id
+	user = oauth.google.userinfo()
+	name = user['name']
+	email_id = user['email']
+	print(user)
+
+	return redirect('/register')
+
 
 if __name__ == "__main__":
 	# app.run(host ="localhost", port = int("5000"))
@@ -477,7 +580,7 @@ if __name__ == "__main__":
 # # of printing it
 
 # from flask import Flask, render_template, url_for, redirect
-# from authlib.integrations.flask_client import OAuth
+
 # import os
 
 # app = Flask(__name__)
@@ -492,46 +595,12 @@ if __name__ == "__main__":
 # '''
 
 # app.config['SERVER_NAME'] = 'localhost:5000'
-# oauth = OAuth(app)
+
 
 # @app.route('/', methods =['GET', 'POST'])
 # def index():
 # 	return render_template('index123.html')
 
-# @app.route('/google/',  methods =['GET', 'POST'])
-# def google():
-
-# 	# Google Oauth Config
-# 	# Get client_id and client_secret from environment variables
-# 	# For developement purpose you can directly put it
-# 	# here inside double quotes
-# 	GOOGLE_CLIENT_ID = "14105763444-75bvq8dpckghed5kougj1q83538hdn3v.apps.googleusercontent.com"
-# 	GOOGLE_CLIENT_SECRET = "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"
-	
-# 	CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
-# 	oauth.register(
-# 		name='google',
-# 		client_id=GOOGLE_CLIENT_ID,
-# 		client_secret=GOOGLE_CLIENT_SECRET,
-# 		server_metadata_url=CONF_URL,
-# 		userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
-# 		client_kwargs={
-# 			'scope': 'openid email profile'
-# 		}
-# 	)
-	
-# 	# Redirect to google_auth function
-# 	redirect_uri = url_for('google_auth', _external=True)
-# 	return oauth.google.authorize_redirect(redirect_uri)
-
-# @app.route('/google/auth/')
-# def google_auth():
-# 	token = oauth.google.authorize_access_token()
-# 	#user = oauth.google.parse_id_token(token)
-# 	#print(" Google User ", user)
-# 	user = oauth.google.userinfo()
-# 	print(user)
-# 	return redirect('/')
 
 # if __name__ == "__main__":
 # 	app.run(debug=True)

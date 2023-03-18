@@ -4,58 +4,34 @@
   
   <title>Login And Registration Form</title>
   <link rel="stylesheet" href="../static/style3.css">
-
   
 </head>
 <body>
-
   <div class="hero">
 <div class="form-box">
+  <div class="text1">Login</div>
   <div class="button-box">
     <div id="btn"></div>
-    <button type="button" class="toggle-btn" onclick="login()" id="u">Log In</button>
-    <button type="button" class="toggle-btn"onclick="register()" id="p">Register</button>
   </div>
   <form id="login" class="input-group" name="myForm" action="" method="Post" required>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
     <input type="text" name="Email_id" class="input-field" placeholder="User Id" required>
     <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
     <button type="submit" class="submit-btn" value="submit">Log In</button>
-    {% with messages = get_flashed_messages() %}
- {% if messages %}
-  <ul>
-  {% for message in messages %}
-    <li>{{ message }}</li>
-  {% endfor %}
-  </ul>
- {% endif %}
-{% endwith %}
     <div >
       <a href="/admin" class="admin">Admin Login</a>
+      <a href="/forgot_password" class="admin1">Forgot Password?</a>
+      <a href="/verify" class="admin2">New User? Register Here</a>
     </div>
-  </form>
-  <form id="register" class="input-group" name="myForm1" action="/register" method="Post"  required >
-    <select id="User Type" name="User_Type" required>
-    <option>Select User Type</option>
-    <option value="Employee">Employee</option>
-    <option value="Student">Student</option>
-    </select>
-    <input type="text" name="User_id" class="input-field" placeholder="User Id" required >
-    <input type="text" name="Name" class="input-field" placeholder="Name" required >
-    <input type="email" name="Email_id" class="input-field" placeholder="Email_id" required>
-    <input type="tel" name="Contact_no"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
-    <input type="password" id="pas1" name="password" class="input-field" placeholder="Enter Password" value="" required> <font color="red"><div id ="c1"></div></font>
-    <input type="password" id="pas2" name="confirm_password" class="input-field" placeholder="Confirm Password" value="" required onkeyup="return check()">
-    
-    <button type="submit" class="submit-btn" id="r1" >Register</button>
-    {% with messages = get_flashed_messages() %}
- {% if messages %}
-  <ul>
-  {% for message in messages %}
-    <li>{{ message }}</li>
-  {% endfor %}
-  </ul>
- {% endif %}
-{% endwith %}
   </form>
 </div>
   </div>
@@ -76,22 +52,7 @@
       z.style.left = "0px";
     }
 
-     //password match
-     function check()
-    {
-      var a= document.getElementById("pas1").value;
-      var b= document.getElementById("pas2").value;
-      if(a!=b)
-      {
-        document.getElementById("c1").innerHTML="Password not match";
-        return false;
-      }
-      else
-      {
-        document.getElementById("c1").innerHTML=" ";
-        return false;
-      }
-    }
+    
 
   </script>
 

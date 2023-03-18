@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>Login And Registration Form</title>
+  <link rel="stylesheet" href="../static/style3.css">
+  
+</head>
+<body>
+  <div class="hero">
+<div class="form-box">
+  <div class="text1">Register</div>
+  <div class="button-box">
+    <div id="btn"></div>
+  </div>
+  <form id="login" class="input-group" name="myForm" action="/register" method="Post" required>
+    <select  name="User_Type" id="User_Type"  required>
+      <option>Select User Type</option>
+      <option value="Employee">Employee</option>
+      <option value="Student">Student</option>
+    </select>  
+    <input type="text" name = "User" class="input-field" placeholder="User Id" required >
+    <input type="password" id = "pas1" name = "pas1" class="input-field" placeholder="Enter Password" required><font color="red"><div id ="c1"></div></font>
+    <input type="password" id = "pas2" name = "pas2" class="input-field" placeholder="Confirm Password" value = "" required onkeyup="return check()">
+    <input type="tel" name="number"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
+    <button type="submit" class="submit-btn" onclick="window.open(index123.html)" value="submit">Register</button>
+    <div >
+    </div>
+  </form>
+</div>
+  </div>
+
+  <script>
+    var x = document.getElementById("login")
+    var y = document.getElementById("register")
+    var z = document.getElementById("btn")
+
+    function register(){
+      x.style.left = "-400px";
+      y.style.left = "50px";
+      z.style.left = "110px";
+    }
+    function login(){
+      x.style.left = "50px";
+      y.style.left = "450px";
+      z.style.left = "0px";
+    }
+
+    function check()
+    {
+      var a= document.getElementById("pas1").value;
+      var b= document.getElementById("pas2").value;
+      if(a!=b)
+      {
+        document.getElementById("c1").innerHTML="Password not match";
+        return false;
+      }
+      else
+      {
+        document.getElementById("c1").innerHTML=" ";
+        return false;
+      }
+    }
+
+  </script>
+
+</body>
+</html>
