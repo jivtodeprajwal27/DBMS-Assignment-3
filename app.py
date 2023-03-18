@@ -106,7 +106,7 @@ def test_guest_fill():
 		if not check:
 			cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
 		mysql.connection.commit()
-		return render_template('home.html')
+		return render_template('logout.html')
 	return render_template('test_guest.html')
 
 @app.route('/test_hostel_fill', methods = ['GET','POST'])
@@ -136,7 +136,7 @@ def test_hostel_fill():
 		 	(%s,%s,%s)', (hostel,room,email))
 		mysql.connection.commit()
 		cursor.close()
-		return render_template('home.html')
+		return render_template('logout.html')
 	return render_template('test_hostel.html')
 
 @app.route('/test_housing_fill', methods = ['GET','POST'])
@@ -168,7 +168,7 @@ def test_housing_fill():
 		 	Values (%s,%s,%s)',(block,apartment,email))
 		mysql.connection.commit()
 		cursor.close()
-		return render_template('home.html')
+		return render_template('logout.html')
 	return render_template('test_housing.html')
 
 @app.route('/test_specific_fill', methods = ['GET','POST'])
