@@ -106,9 +106,10 @@
                     <div class="filter">
                     <label for="comp_id"></label>
                     <form id="login" class="input-group" name="myForm" action="/change_status" method="Post" required>
-                        <select id="domain1" name="filter">
+                        <!-- <select id="domain1" name="filter">
                         <option value="{{item[0]}}">{{item[0]}}</option>
-                    </select>
+                    </select> -->
+                    <input type="text" name="filter" value="{{item[0]}}" readonly>
                     </div>
                 </td> 
                 <td>{{item[1]}}</td>

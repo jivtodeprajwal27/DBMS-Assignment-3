@@ -20,7 +20,8 @@
       <option value="Student">Student</option>
     </select>  
     <input type="text" name = "User" class="input-field" placeholder="User Id" required >
-    <input type="password" id = "pas1" name = "pas1" class="input-field" placeholder="Enter Password" required><font color="red"><div id ="c1"></div></font>
+    <font color="red"><div id ="c2"></div></font>
+    <input type="password" id = "pas1" name = "pas1" class="input-field" placeholder="Enter Password" required onkeyup="return(valid())"><font color="red"><div id ="c1"></div></font>
     <input type="password" id = "pas2" name = "pas2" class="input-field" placeholder="Confirm Password" value = "" required onkeyup="return check()">
     <input type="tel" name="number"  pattern="[0-9]{10}" title="Ten digits code" class="input-field" placeholder="Contact no." required>
     <button type="submit" class="submit-btn" onclick="window.open(index123.html)" value="submit">Register</button>
@@ -61,7 +62,29 @@
         return false;
       }
     }
+    function valid()
+      {
+        var pas1 =document.getElementById("pas1").value;
+        var lower = new RegExp('(?=.*[a-z])');
+        var upper = new RegExp('(?=.*[A-Z])');
+        var num = new RegExp('(?=.*[0-9])');
+        var spe= new RegExp('(?=.*[!@#\$%\^&\*])');
+        var len = new RegExp('(?=.{8,})');
 
+         if(len.test(pas1)&&lower.test(pas1)&&upper.test(pas1)&&spe.test(pas1)&&num.test(pas1))
+          {
+            document.getElementById("c2").style.color = 'green'
+            document.getElementById("c2").innerHTML= "you have chossen strong password"; 
+            return false;
+          }
+          else
+          {
+            document.getElementById("c2").style.color = 'red'
+            document.getElementById("c2").innerHTML= "Atleat one numeric and upper and lower and spacial chrecter and length must be atlest 8";
+            return false;
+          }
+           
+      }
   </script>
 
 </body>
