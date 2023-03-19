@@ -1,6 +1,5 @@
 from flask import *
 from flask_mysqldb import MySQL
-from flask_login import login_user, logout_user, LoginManager, UserMixin
 from auth_decorator import login_required
 import MySQLdb.cursors
 import re
@@ -27,6 +26,7 @@ name = ''
 email_id = ''
 OTP = None
 to_mail = None
+complaint_email=""
 mysql = MySQL(app)
 oauth = OAuth(app)
 
@@ -54,7 +54,7 @@ def test_specific():
 @app.route('/home', methods =['GET', 'POST'])
 @login_required
 def home():
-	print(session['loggedin'])
+	print(session)
 	return render_template('home.html')
 	
 
@@ -63,7 +63,7 @@ def home():
 def test_guest_fill():
 	if request.method == 'POST':
 		username = request.form['username']
-		email = request.form['email']
+		# email = request.form['email']
 		number = request.form['number']
 		subject = request.form['subject']	
 		b_r = request.form['b_r']
@@ -77,10 +77,10 @@ def test_guest_fill():
 		INSERT INTO Complaint\
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
-		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
+		(str(comp_id.hex),complaint_email,subject,domain,subdomain,subdomain1,'Guest House',b_r,'Always','Pending','NULL','NULL'))
 		check=cursor.execute('Select * from Guest_House where Floor = %s and Room_No = %s',(floor,b_r))
 		if not check:
-			cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,email))
+			cursor.execute('INSERT INTO Guest_House (Floor,Room_No,Email_Id) VALUES (%s,%s,%s)',(floor,b_r,complaint_email))
 		mysql.connection.commit()
 		return render_template('logout.html')
 	return render_template('test_guest.html')
@@ -90,7 +90,7 @@ def test_guest_fill():
 def test_hostel_fill():
 	if request.method == 'POST':
 		username = request.form['username']
-		email = request.form['email']
+		# email = request.form['email']
 		number = request.form['number']
 		subject = request.form['subject']
 		hostel = request.form['nh']	
@@ -106,11 +106,11 @@ def test_hostel_fill():
 		INSERT INTO Complaint\
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
-		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,hostel,room,availability,'Pending',image,'NULL'))
+		(str(comp_id.hex),complaint_email,subject,domain,subdomain,subdomain1,hostel,room,availability,'Pending',image,'NULL'))
 		check = cursor.execute('Select * from Hostel where Hostel_Name = %s and Room_No = %s',(hostel,room))
 		if not check:
 			cursor.execute('INSERT INTO Hostel (Hostel_Name,Room_No,Student_Email_ID) VALUES\
-		 	(%s,%s,%s)', (hostel,room,email))
+		 	(%s,%s,%s)', (hostel,room,complaint_email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('logout.html')
@@ -121,7 +121,7 @@ def test_hostel_fill():
 def test_housing_fill():
 	if request.method == 'POST':
 		username = request.form['username']
-		email = request.form['email']
+		# email = request.form['email']
 		number = request.form['number']
 		subject = request.form['subject']
 		apartment = request.form['apartment']	
@@ -138,12 +138,12 @@ def test_housing_fill():
 		INSERT INTO Complaint\
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
-		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,apartment,corridor,availability,'Pending',image,'NULL'))
+		(str(comp_id.hex),complaint_email,subject,domain,subdomain,subdomain1,apartment,corridor,availability,'Pending',image,'NULL'))
 		check=cursor.execute('Select * from Housing_Updated where Block_Name = %s and Apartment_No = %s',(block,apartment))
 		print(check)
 		if not check:
 			cursor.execute('INSERT into Housing_Updated (Block_Name,Apartment_No,Email_ID)\
-		 	Values (%s,%s,%s)',(block,apartment,email))
+		 	Values (%s,%s,%s)',(block,apartment,complaint_email))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template('logout.html')
@@ -154,7 +154,7 @@ def test_housing_fill():
 def test_specific_fill():
 	if request.method == 'POST':
 		username = request.form['username']
-		email = request.form['email']
+		# email = request.form['email']
 		number = request.form['number']
 		subject = request.form['subject']
 		nh = request.form['nh']	
@@ -170,10 +170,10 @@ def test_specific_fill():
 		INSERT INTO Complaint\
 		(Comp_Id,User_ID,Subject,Domain,Sub_Domain1,Sub_Domain2,Location,Specific_Location,Availability,Complaint_Status,Image,Caption)\
 		VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', \
-		(str(comp_id.hex),email,subject,domain,subdomain,subdomain1,nh,location,availability,'Pending',image,'NULL'))
+		(str(comp_id.hex),complaint_email,subject,domain,subdomain,subdomain1,nh,location,availability,'Pending',image,'NULL'))
 		mysql.connection.commit()
 		cursor.close()
-		return redirect('/logout')
+		return redirect('logout.html')
 	return render_template('test_specific.html')
 
 
@@ -216,8 +216,11 @@ def login():
 		account = cursor.fetchone()
 		login = False
 		if account:
-			session['user'] = account[0]
+			global complaint_email
+			complaint_email = username
 			msg = 'Logged in successfully !'
+			session['user'] = username		
+			print(session['user'])	
 			return render_template('home.html',login=login)
 		else:
 			msg = 'Incorrect username / password !'
@@ -348,7 +351,8 @@ def new_password():
 @app.route('/logout', methods = ['post','get'])
 def logout():
 	session.pop('user')
-	return redirect(url_for('/'))
+	print(session)
+	return redirect('/')
 
 
 
