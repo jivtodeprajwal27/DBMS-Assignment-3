@@ -1,0 +1,109 @@
+/* Center the form on the page */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /*background-color: #f2f2f2;*/
+
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("i.jpg");  
+    background-position:left ;
+    background-size: cover;
+    position: absolute;
+  }
+  
+  /* Style the form container */
+  .form-box{
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background: #ffffff;
+    padding: 5px;
+    overflow: hidden;
+    float: right;
+    margin-right: 200px;
+    margin-top: 9%;
+    border-radius: 10px;
+    
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    }
+  
+  /* Style the login and register text */
+  .text1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .text2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the input fields */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the submit button */
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 30px;
+    border-radius: 5px;
+    background-color: #efe9d4;
+    color: rgb(14, 4, 4);
+    cursor: pointer;
+  }
+  
+  /* Style the admin login, forgot password, and register here links */
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #999;
+  }
+  
+  .admin {
+    margin-right: 20px;
+  }
+  
+  .admin1 {
+    margin-right: 20px;
+  }
+  
+  /* Style the flashes */
+  .flashes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+  
+  /* Style the flash messages */
+  .flashes li {
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .flashes li.success {
+    background-color: #2ecc71;
+    color: #fff;
+  }
+  
+  .flashes li.error {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  

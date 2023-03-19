@@ -34,15 +34,15 @@
 	<h1>Maintainence Portal Dashboard</h1>
     <button class="Logout" type="submit" onclick="location.href='/logout'";>Log Out</button>
 	<!-- Menubar -->
-    <div class="filter">
+    <!-- <div class="filter">
     <form id="login" class="input-group" name="myForm" action="/filter2" method="Post" required>
-        <select id="filter2" name="filter2" onchange="this.form.submit()">
+        
         <ul>
            
-            <!-- <li><a href="#">Housing</a></li>
+            <li><a href="/housing_table">Housing</a></li>
             <li><a href="#">Hostel</a></li>
             <li><a href="#">Guest House</a></li>
-            <li><a href="#">Specific Location</a></li> -->
+            <li><a href="#">Specific Location</a></li>
             <option value="" >Select Location</option>
             <option value="All" >All</option>
 			<option value="Hostel">Hostel</option>
@@ -53,13 +53,18 @@
         </ul>
         </select>
     </form>
-    </div>
+    </div> -->
     <!--STATS-->
     <div class="stats">
-        
-        <span id="totalComplaints">Total Complaints: 50</span>
+        {% if messages %}  
+        <span id="totalComplaints">Total Complaints: {{messages[3][0]}}</span>
         <span> | </span>
-        <span id="completed">Completed: 30</span>
+        <span id="completed">Completed: {{messages[1][0]}}</span>
+        <span> | </span>
+        <span id="In Progress">In Progress: {{messages[2][0]}}</span>
+        <span> | </span>
+        <span id="Pending">Pending: {{messages[0][0]}}</span>
+        {% endif %}
       </div>
 
 	<!-- Filters -->
@@ -97,7 +102,15 @@
         <tbody>
             {% for item in data %}
             <tr>
-                <td>{{item[0]}}</td>
+                <td>
+                    <div class="filter">
+                    <label for="comp_id"></label>
+                    <form id="login" class="input-group" name="myForm" action="/change_status" method="Post" required>
+                        <select id="domain1" name="filter">
+                        <option value="{{item[0]}}">{{item[0]}}</option>
+                    </select>
+                    </div>
+                </td> 
                 <td>{{item[1]}}</td>
                 <td>{{item[2]}}</td>
                 <td>{{item[3]}}</td>
@@ -106,7 +119,18 @@
                 <td>{{item[6]}}</td>
                 <td>{{item[7]}}</td>
                 <td>{{item[8]}}</td>
-                <td>{{item[9]}}</td>   
+                <td>
+                    <div class="filter">
+                    <label for="domain">{{item[9]}}</label>
+                        <select id="domain1" name="filter2" onchange="this.form.submit()">
+                        <option value="">Select Status</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Done">Done</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    </form>
+                    </div>
+                </td>   
             </tr>
             {% endfor %}
         </thed>
