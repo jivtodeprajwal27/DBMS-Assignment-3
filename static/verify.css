@@ -242,6 +242,7 @@
 		font-size: 14px;
 		letter-spacing: 0.2px;
 		font-family: "Roboto";
+		cursor: pointer;
 	  }
 	  .google-btn:hover {
 		box-shadow: 0 0 6px #4285f4;

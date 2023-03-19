@@ -251,6 +251,7 @@ def admin():
 		password = request.form['password']
 		print(username,password)
 		if username.lower() == 'admin' and password == 'pass':
+			session['user'] = 'admin'
 			cursor = mysql.connection.cursor()
 			cursor.execute("SELECT * FROM Complaint")
 			data = cursor.fetchall()
@@ -353,6 +354,12 @@ def logout():
 	session.pop('user')
 	print(session)
 	return redirect('/')
+	return redirect('/')
+
+@app.route('/admin_logout', methods = ['post','get'])
+def admin_logout():
+	session.pop('user')
+	return redirect('/admin')
 
 
 
