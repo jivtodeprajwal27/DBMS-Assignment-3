@@ -34,13 +34,26 @@
 	<h1>Maintainence Portal Dashboard</h1>
     <button class="Logout" type="submit">Log Out</button>
 	<!-- Menubar -->
+    <div class="filter">
+    <form id="login" class="input-group" name="myForm" action="/filter2" method="Post" required>
+        <select id="filter2" name="filter2" onchange="this.form.submit()">
         <ul>
-            <li><a href="#">Housing</a></li>
+           
+            <!-- <li><a href="#">Housing</a></li>
             <li><a href="#">Hostel</a></li>
             <li><a href="#">Guest House</a></li>
-            <li><a href="#">Specific Location</a></li>
-        </ul>
+            <li><a href="#">Specific Location</a></li> -->
+            <option value="" >Select Location</option>
+            <option value="All" >All</option>
+			<option value="Hostel">Hostel</option>
+			<option value="Housing">Housing</option>
+			<option value="Guest House">Guest House</option>
+            <option value="Specific Location">Specific Location</option>
 
+        </ul>
+        </select>
+    </form>
+    </div>
     <!--STATS-->
     <div class="stats">
         

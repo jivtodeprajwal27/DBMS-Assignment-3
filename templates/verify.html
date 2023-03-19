@@ -2,7 +2,7 @@
 <html>
 <head>
   
-  <title>Reset Password Form</title>
+  <title>verify with Google</title>
   <link rel="stylesheet" href="../static/verify.css">
   
 </head>
@@ -10,13 +10,26 @@
   
   <div class="hero">
 <div class="form-box"> 
-    <img src="logo.png" alt="Image 1" class="image1">
-    <div class="text1">Verification</div>
-    <div class="text2">To verify your email</div>
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+  
+
+    <!-- <img src="logo.png" alt="Image 1" class="image1"> -->
+    <!-- <div class="text1">Verification</div> -->
+    <div class="text2">Verify your IITGN Google account</div>
   <form id="login" class="input-group" name="myForm" action="/OTP" method="Post" required>
-    <button type="submit" class="submit-btn1" id="sbm" value="submit">Sign-in with google</button>
+    
+    <div class="google-btn">
+      <div class="google-icon-wrapper">
+        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+      </div>
+      <p class="btn-text"><b> Sign in with google</b></p>
+    </div>
+    <!-- <button type="submit" class="submit-btn1" id="sbm" value="submit">Sign-in with google</button> -->
   </form>
 </div>
+
   </div>
 
   <script>

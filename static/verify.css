@@ -7,7 +7,7 @@
 	.hero{
 		height: 100%;
 		width: 100%;
-		background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("C:\\Users\\rishi\\OneDrive\\Desktop\\test\\i.jpg");  
+		background-image: linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0)),url("i.jpg");  
 		background-position:left ;
 		background-size: cover;
 		position: absolute;
@@ -15,15 +15,15 @@
 	
 	.form-box{
 	width: 380px;
-	height: 450px;
+	height: 33%;
 	position: relative;
 	margin: 6% auto;
 	background: #ffffff;
-	padding: 5px;
+	padding: 11px;
 	overflow: hidden;
 	float: right;
 	margin-right: 200px;
-	margin-top: 9%;
+	margin-top: 14%;
 	border-radius: 10px;
 	
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
@@ -32,7 +32,7 @@
     .text1{
 		position : relative;
 		top:45%;
-		left:127%;
+		left:131%;
 		transform: translate(-100%, -100%);
 		font-size: 30px;
 		color: #6b6b6b;
@@ -42,7 +42,7 @@
       .text2{
 		position : relative;
 		top:13%;
-		left:126%;
+		left:118%;
 		transform: translate(-100%, -100%);
 		font-size: 18px;
 		color: #6b6b6b;
@@ -155,9 +155,10 @@
 	position: absolute;
 	}
 	
-	#login{
-	left: 50px;
-	top:30%;
+	#login {
+		/* left: 50px; */
+		/* top: 30%; */
+		right: 10px;
 	}
 	
 	#register{
@@ -184,9 +185,7 @@
 	  transition: all 0.3s ease;
 	
 	}
-	.input-group select:hover{
 	
-	}
 	
 	#r1{
 	width: 85%;
@@ -210,4 +209,43 @@
 	.alert {
 		opacity: 1;
 		transition: opacity 0.6s; /* 600ms to fade out */
+	  }
+	  
+	  @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+	  .google-btn {
+		width: 184px;
+		height: 42px;
+		background-color: #4285f4;
+		border-radius: 2px;
+		box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+	  }
+	  .google-btn .google-icon-wrapper {
+		position: absolute;
+		margin-top: 1px;
+		margin-left: 1px;
+		width: 40px;
+		height: 40px;
+		border-radius: 2px;
+		background-color: #fff;
+	  }
+	  .google-btn .google-icon {
+		position: absolute;
+		margin-top: 11px;
+		margin-left: 11px;
+		width: 18px;
+		height: 18px;
+	  }
+	  .google-btn .btn-text {
+		float: right;
+		margin: 11px 11px 0 0;
+		color: #fff;
+		font-size: 14px;
+		letter-spacing: 0.2px;
+		font-family: "Roboto";
+	  }
+	  .google-btn:hover {
+		box-shadow: 0 0 6px #4285f4;
+	  }
+	  .google-btn:active {
+		background: #1669f2;
 	  }
