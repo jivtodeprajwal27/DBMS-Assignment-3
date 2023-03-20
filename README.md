@@ -96,7 +96,7 @@ The technology used for frontend: HTML, CSS, and JavaScript, whereas for the bac
   
   * complaint about the electricity in the hostel room
    
-   ![](./screenshorts/Hostel_complain.png)
+   ![](./screenshorts/Hostel_complain.PNG)
 
   * complaint successful
     
